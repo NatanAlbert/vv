@@ -1,0 +1,163 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-silver: var(--silver);
+  --color-signal: var(--signal);
+  --color-graphite: var(--graphite);
+}
+
+/* VANTA — deep black, graphite, metal, one cold electric accent */
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.13 0.004 265);      /* #08090B */
+  --foreground: oklch(0.965 0.004 100);     /* #F5F5F2 */
+  --graphite: oklch(0.2 0.006 265);         /* #15171B */
+  --card: oklch(0.2 0.006 265);
+  --card-foreground: oklch(0.965 0.004 100);
+  --popover: oklch(0.18 0.006 265);
+  --popover-foreground: oklch(0.965 0.004 100);
+  --primary: oklch(0.965 0.004 100);
+  --primary-foreground: oklch(0.13 0.004 265);
+  --secondary: oklch(0.22 0.006 265);
+  --secondary-foreground: oklch(0.965 0.004 100);
+  --muted: oklch(0.2 0.006 265);
+  --muted-foreground: oklch(0.63 0.012 260);  /* #858A94 */
+  --silver: oklch(0.84 0.008 250);            /* #C9CDD2 */
+  --signal: oklch(0.66 0.19 255);             /* electric blue */
+  --accent: oklch(0.24 0.008 265);
+  --accent-foreground: oklch(0.965 0.004 100);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.965 0.004 100);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.66 0.19 255);
+  --shadow-card: 0 40px 80px -30px oklch(0 0 0 / 80%), 0 18px 30px -18px oklch(0 0 0 / 70%);
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { color-scheme: dark; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--signal); color: var(--foreground); }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility display {
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+@utility hairline {
+  border: 1px solid var(--border);
+}
+
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+  transition: all 0.25s var(--ease-lux);
+  white-space: nowrap;
+  &:hover { color: var(--foreground); border-color: oklch(1 0 0 / 22%); }
+  &[data-active="true"] {
+    color: var(--foreground);
+    border-color: var(--signal);
+    box-shadow: inset 0 0 0 1px var(--signal);
+  }
+  &:disabled { opacity: 0.3; pointer-events: none; }
+}
+
+@utility btn-solid {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  height: 3rem; padding: 0 1.4rem; border-radius: 999px;
+  background: var(--foreground); color: var(--background);
+  font-size: 0.92rem; font-weight: 500;
+  transition: transform 0.3s var(--ease-lux), opacity 0.2s;
+  &:hover { opacity: 0.9; }
+  &:active { transform: scale(0.97); }
+}
+
+@utility btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  height: 3rem; padding: 0 1.4rem; border-radius: 999px;
+  border: 1px solid var(--border); color: var(--foreground);
+  font-size: 0.92rem; font-weight: 500;
+  transition: all 0.3s var(--ease-lux);
+  &:hover { border-color: oklch(1 0 0 / 25%); background: oklch(1 0 0 / 4%); }
+  &:active { transform: scale(0.97); }
+}
+
+@utility card-shadow { box-shadow: var(--shadow-card); }
+
+@utility stage {
+  background:
+    radial-gradient(60% 50% at 50% 40%, oklch(1 0 0 / 6%), transparent 70%),
+    var(--background);
+}
+
+@keyframes float-card {
+  0%, 100% { transform: rotateX(8deg) rotateY(-14deg) translateY(0); }
+  50% { transform: rotateX(4deg) rotateY(10deg) translateY(-10px); }
+}
+@utility animate-float { animation: float-card 9s var(--ease-lux) infinite; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@utility animate-rise { animation: rise 0.9s var(--ease-lux) both; }
+
+
+/* Hide the complete Lovable branding widget on every page. */
+#lovable-badge {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
